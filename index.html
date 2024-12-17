@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/9f23cf76db.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./styles/styles.css" />
+  </head>
+
+  <body>
+    <header class="heading">
+      <nav class="flex-row">
+        <button class="menu-btn" onclick="toggleSideNav()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <h1>Contact Application</h1>
+      </nav>
+    </header>
+    <main class="flex-row">
+      <aside class="flex-col side-nav">
+        <div class="flex-col">
+          <div class="flex-row contact-heading">
+            <h1>Contacts</h1>
+            <h1 class="add-btn" onclick="showEdit(false)">+</h1>
+          </div>
+          <input type="text" class="m" id="search-bar" placeholder="Search" required />
+        </div>
+        <div class="flex-col contact-name">
+          <div class="p1 flex-row btn-box activated" id="0">
+            <div>
+              <h2 class="m0 name-area">Sarakshi Kaur</h2>
+            </div>
+            <div>
+              <button class="view btn-2">
+                <i class="fa-solid fa-eye icon" onclick="showCard(event)"></i>
+              </button>
+            </div>
+          </div>
+          <hr class="hr-width" />
+        </div>
+      </aside>
+      <section class="flex-col main-div flex-col-center">
+        <div class="contact-card flex-col flex-col-center">
+          <div class="name-box flex-col flex-col-center">
+            <h1 class="m0">
+              <i class="fa-regular fa-address-book fa-lg"></i>
+              <span id="Fname" class="heading-span">Sarakshi</span>
+              <span class="heading-span" id="Lname">Kaur</span>
+            </h1>
+            <p class="mt sub-heading" id="position">Intern</p>
+          </div>
+          <div class="flex-row center-space card-info-box">
+            <div class="flex-col center-space p1">
+              <div>
+                <i class="fa-solid fa-envelope"></i><span class="inner-span"> Email:</span>
+                <span id="Mail" class="inner-span">sk@abc.com</span>
+              </div>
+              <div>
+                <i class="fa-solid fa-phone"></i><span class="inner-span"> Contact:</span>
+                <span id="Phone" class="inner-span">9988567128</span>
+              </div>
+            </div>
+            <div class="flex-col center-space">
+              <div>
+                <i class="fa-solid fa-cake-candles"></i><span class="inner-span"> Birthday:</span>
+                <span id="DOB" class="inner-span">20/03/2003</span>
+              </div>
+              <div>
+                <i class="fa-solid fa-location-dot"></i><span class="inner-span"> Address:</span>
+                <span id="address" class="inner-span">Kharar</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-row details hidden">
+          <form class="flex-col inp-box">
+            <h2 class="inp-heading"></h2>
+            <div class="flex-row inp-box-child">
+              <input type="text" id="FirstName" placeholder="FirstName" class="inp" required />
+              <input type="text" id="LastName" placeholder="LastName" class="inp" required />
+            </div>
+            <input type="email" id="Email" placeholder="Email" class="inp" required />
+            <div class="flex-row inp-box-child">
+              <input
+                type="text"
+                id="ContactNumber"
+                placeholder="ContactNumber"
+                oninvalid="this.setCustomValidity('ContactNumber must contain 10 digits')"
+                oninput="this.setCustomValidity('')"
+                maxlength="10"
+                pattern="[1-9]{1}[0-9]{9}"
+                class="inp"
+                required
+              />
+              <input type="text" id="Position" placeholder="Position" class="inp" required />
+            </div>
+            <input type="date" id="BirthDate" required />
+            <input type="text" id="Address" placeholder="Address" required />
+            <button class="btn" onclick="createContact(event)">Submit</button>
+          </form>
+        </div>
+      </section>
+    </main>
+    <div id="contact-box"></div>
+    <script src="./dis/index.js"></script>
+  </body>
+</html>
