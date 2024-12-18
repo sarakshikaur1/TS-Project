@@ -15,12 +15,15 @@ RUN npm install -g typescript
 RUN tsc
 
 # Stage 2: Serve static files
-FROM httpd:2.4
+FROM nginx
 
-# Copy compiled JavaScript, styles, and index.html to Apache's public folder
-COPY --from=build /app/dis/ /usr/local/apache2/htdocs/dis/
-COPY styles /usr/local/apache2/htdocs/styles/
-COPY index.html /usr/local/apache2/htdocs/index.html
+# Copy compiled JavaScript, styles, and index.html to Nginx's default root
+COPY --from=build /app/dis/ /usr/share/nginx/html/dis/
+COPY styles /usr/share/nginx/html/styles/
+COPY index.html /usr/share/nginx/html/
+
+# Copy custom Nginx configuration
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
 # Expose port 80
 EXPOSE 80

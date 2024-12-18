@@ -22,8 +22,14 @@ jobs:
           push: true
           tags: sara933/ts-proj:v-${{github.run_attempt}}
 
-  # deploy_job:
-  #   runs-on: 'ubuntu-latest'
-  #   steps:
-  #     - name: SSH to server
+  deploy_job:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: SSH to server
+        run : |
+          ssh -o StrictHostKeyChecking=no -i ${{secrets.SSH_KEY}} ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} << EOF
+            docker pull sara933/ts-proj:v-${{github.run_attempt}}
+            docker run -d -p 80:80 sara933/ts-proj:v-${{github.run_attempt}}
+            exit
+          EOF
       
