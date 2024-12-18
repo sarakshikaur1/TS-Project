@@ -30,12 +30,16 @@ jobs:
     steps:
       - name: SSH to server
         run : |
-          install -m 600 -D /dev/null ~/.ssh/id_rsa
-          echo ${{secrets.SSH_KEY}} > ~/.ssh/id_rsa
-          echo "${{ secrets.SSH_HOST }}" > ~/.ssh/known_hosts
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} << EOF
-            docker pull sara933/ts-proj:v-${{github.run_attempt}}
-            docker run -d -p 80:80 sara933/ts-proj:v-${{github.run_attempt}}
-            exit
-          EOF
+           mkdir -p ~/.ssh
+           # Set up private key with correct permissions
+           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+           chmod 600 ~/.ssh/id_rsa
+           # Add SSH host to known hosts to avoid host verification prompt
+           echo "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
+           # Run commands on the remote server
+           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
+           docker pull sara933/ts-proj:v-${{ github.run_attempt }}
+           docker run -d -p 80:80 sara933/ts-proj:v-${{ github.run_attempt }}
+           exit
+           EOF
       
