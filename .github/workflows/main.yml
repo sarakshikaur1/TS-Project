@@ -30,9 +30,10 @@ jobs:
     steps:
       - name: SSH to server
         run : |
-          echo ${{secrets.SSH_KEY}} > key.pem
-          chmod 400 key.pem
-          ssh -o StrictHostKeyChecking=no -i key.pem ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} << EOF
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo ${{secrets.SSH_KEY}} > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_HOST }}" > ~/.ssh/known_hosts
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} << EOF
             docker pull sara933/ts-proj:v-${{github.run_attempt}}
             docker run -d -p 80:80 sara933/ts-proj:v-${{github.run_attempt}}
             exit
