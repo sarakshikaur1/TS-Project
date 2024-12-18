@@ -30,7 +30,7 @@ jobs:
     steps:
       - name: SSH to server
         run : |
-          cat ${{secrets.SSH_KEY}} > key.pem
+          echo ${{secrets.SSH_KEY}} > key.pem
           chmod 400 key.pem
           ssh -o StrictHostKeyChecking=no -i key.pem ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} << EOF
             docker pull sara933/ts-proj:v-${{github.run_attempt}}
