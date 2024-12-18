@@ -33,7 +33,7 @@ jobs:
            mkdir -p ~/.ssh
            # Set up private key with correct permissions
            echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-           chmod 600 ~/.ssh/id_rsa
+           chmod 400 ~/.ssh/id_rsa
            # Add SSH host to known hosts to avoid host verification prompt
            echo "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
            # Run commands on the remote server
