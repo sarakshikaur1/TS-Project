@@ -42,7 +42,9 @@ jobs:
            # Run commands on the remote server
            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
            docker pull sara933/ts-proj:v-${{ github.run_attempt }}
-           docker run -d -p 80:80 sara933/ts-proj:v-${{ github.run_attempt }}
+           docker stop my-proj
+           docker rm my-proj
+           docker run -d -p 3000:80 --name my-proj sara933/ts-proj:v-${{ github.run_attempt }}
            exit
            EOF
       

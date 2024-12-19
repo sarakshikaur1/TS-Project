@@ -20,7 +20,7 @@ FROM nginx
 # Copy compiled JavaScript, styles, and index.html to Nginx's default root
 COPY --from=build /app/dis/ /usr/share/nginx/html/dis/
 COPY styles /usr/share/nginx/html/styles/
-COPY index.html /usr/share/nginx/html/
+COPY index.html /usr/share/nginx/index.html
 
 # Copy custom Nginx configuration
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
