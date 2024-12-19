@@ -18,8 +18,8 @@ RUN tsc
 FROM nginx
 
 # Copy compiled JavaScript, styles, and index.html to Nginx's default root
-COPY --from=build /app/dis/ /usr/share/nginx/html/dis/
-COPY styles /usr/share/nginx/html/styles/
+COPY --from=build /app/dis/ /usr/share/nginx/dis/
+COPY styles /usr/share/nginx/styles/
 COPY index.html /usr/share/nginx/index.html
 
 # Copy custom Nginx configuration
